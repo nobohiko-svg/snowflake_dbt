@@ -1,0 +1,21 @@
+name: 'Analytics' 
+version: '1.0.0'
+config-version: 2
+
+
+profile: 'default' 
+
+# Lokasi folder-folder utama
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+
+# Konfigurasi materialisasi
+models:
+  my_analytics_project: 
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table

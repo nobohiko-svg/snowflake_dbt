@@ -1,0 +1,64 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Tabel dimensi yang berisi informasi profil pelanggan unik."
+    columns:
+      - name: customer_id
+        description: "Primary key untuk pelanggan."
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_products
+    description: "Tabel dimensi untuk kategori dan detail produk."
+    columns:
+      - name: product_id
+        description: "Primary key untuk produk."
+        tests:
+          - not_null
+          - unique
+
+  - name: fact_sales
+    description: "Tabel fakta yang mencatat setiap transaksi item dalam pesanan."
+    columns:
+      - name: order_id
+        description: "ID unik untuk setiap transaksi."
+        tests:
+          - not_null
+          - unique
+
+      - name: order_status
+        description: "Status pengiriman dan pembayaran pesanan."
+        tests:
+          - accepted_values:
+              arguments:
+                values:
+                  [
+                    "delivered",
+                    "shipped",
+                    "canceled",
+                    "invoiced",
+                    "processing",
+                    "unavailable",
+                    "approved",
+                    "created",
+                  ]
+
+      - name: customer_id
+        description: "Referensi ke tabel dim_customers."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_id
+
+      - name: product_id
+        description: "Referensi ke tabel dim_products."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_products')
+                field: product_id

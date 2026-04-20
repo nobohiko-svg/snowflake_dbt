@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: PUBLIC           # Nama yang Anda panggil di {{ source('PUBLIC', ...) }}
+    database: DB_TEST      # Ganti dengan nama database Anda di Snowflake
+    schema: PUBLIC         # Nama schema asli di Snowflake
+    tables:
+      - name: RAW_CUSTOMERS
+      - name: RAW_ORDERS
+      - name: RAW_PRODUCTS
+      - name: RAW_ORDER_ITEMS
